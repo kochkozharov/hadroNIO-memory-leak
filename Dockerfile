@@ -15,7 +15,7 @@ RUN mkdir -p $HOME
 WORKDIR $HOME
 RUN apt-get update && \
     apt-get install -y git libnuma-dev
-RUN git clone https://github.com/kochkozharov/hadroNIO.git
+RUN git clone https://github.com/hhu-bsinfo/hadroNIO.git
 RUN cd hadroNIO && \
     git checkout development && \
     ./gradlew shadowJar
