@@ -1,13 +1,21 @@
 services:
   server:
-    build: .
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        HADRONIO_URL: ${HADRONIO_URL}
     ports:
       - "8080:8080"
     command: java ${JVM_PARAMS} /usr/app/NioServer.java
   client:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        HADRONIO_URL: ${HADRONIO_URL}
     depends_on:
       - server
     ports:
       - "9010:9010"
-    build: .
     command: java ${JVM_PARAMS} ${JVM_VISUALVM_PARAMS} -XX:MaxDirectMemorySize=1G /usr/app/NioClient.java
