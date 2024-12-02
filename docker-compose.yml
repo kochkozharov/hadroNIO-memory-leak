@@ -1,0 +1,13 @@
+services:
+  server:
+    build: .
+    ports:
+      - "8080:8080"
+    command: java ${JVM_PARAMS} /usr/app/NioServer.java
+  client:
+    depends_on:
+      - server
+    ports:
+      - "9010:9010"
+    build: .
+    command: java ${JVM_PARAMS} ${JVM_VISUALVM_PARAMS} /usr/app/NioClient.java
