@@ -10,4 +10,4 @@ services:
     ports:
       - "9010:9010"
     build: .
-    command: java ${JVM_PARAMS} ${JVM_VISUALVM_PARAMS} /usr/app/NioClient.java
+    command: java ${JVM_PARAMS} ${JVM_VISUALVM_PARAMS} -XX:MaxDirectMemorySize=1G /usr/app/NioClient.java

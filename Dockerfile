@@ -15,8 +15,8 @@ RUN mkdir -p $HOME
 WORKDIR $HOME
 RUN apt-get update && \
     apt-get install -y git libnuma-dev
-RUN git clone https://github.com/hhu-bsinfo/hadroNIO.git && \
-    cd hadroNIO && \
+RUN git clone https://github.com/kochkozharov/hadroNIO.git
+RUN cd hadroNIO && \
     git checkout development && \
     ./gradlew shadowJar
 COPY --from=build-ucx /usr/app/ucx-bin /opt/ucx
