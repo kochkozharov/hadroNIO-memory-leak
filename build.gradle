@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+dependencies {
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.18.0'
+}
+
+
+
+task NioServerJar(type: Jar) {
+    archiveBaseName = 'NioServer'
+    from sourceSets.main.output
+    manifest {
+        attributes 'Main-Class': 'com.github.kochkozharov.NioServer'
+    }
+}
+
+task NioClientJar(type: Jar) {
+    archiveBaseName = 'NioClient'
+    from sourceSets.main.output
+    manifest {
+        attributes 'Main-Class': 'com.github.kochkozharov.NioClient'
+    }
+}
+
+NioServerJar.dependsOn shadowJar
+NioClientJar.dependsOn shadowJar

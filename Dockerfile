@@ -2,7 +2,7 @@ FROM gcc:12 AS build-ucx
 ENV HOME=/usr/app
 RUN mkdir -p $HOME
 WORKDIR $HOME
-RUN git clone --depth 1 -b v1.14.0 --single-branch --depth 1 https://github.com/openucx/ucx.git && \
+RUN git clone --depth 1 -b v1.17.0 --single-branch --depth 1 https://github.com/openucx/ucx.git && \
     cd ucx && \
     ./autogen.sh && \
     ./contrib/configure-release --prefix=/usr/app/ucx-bin && \
@@ -18,10 +18,10 @@ RUN apt-get update && \
 ARG HADRONIO_URL
 RUN git clone "${HADRONIO_URL:-https://github.com/hhu-bsinfo/hadroNIO.git}"
 RUN cd hadroNIO && \
-    git checkout development && \
+    git checkout bugfix/socket-channel-issue && \
     ./gradlew shadowJar
 COPY --from=build-ucx /usr/app/ucx-bin /opt/ucx
-COPY ./NioClient.java ./NioServer.java $HOME
+COPY ./build/libs/memory-leak-hadronio-1.0-SNAPSHOT-all.jar $HOME
 ENV LD_LIBRARY_PATH=/opt/ucx/lib
 ENV PATH=$PATH:/opt/ucx/bin
 ENV UCX_TLS=tcp
