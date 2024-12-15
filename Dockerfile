@@ -15,13 +15,14 @@ RUN mkdir -p $HOME
 WORKDIR $HOME
 RUN apt-get update && \
     apt-get install -y git libnuma-dev
-ARG HADRONIO_URL
-RUN git clone "${HADRONIO_URL:-https://github.com/hhu-bsinfo/hadroNIO.git}"
+RUN git clone "https://github.com/kochkozharov/hadroNIO.git"
 RUN cd hadroNIO && \
     git checkout bugfix/socket-channel-issue && \
     ./gradlew shadowJar
 COPY --from=build-ucx /usr/app/ucx-bin /opt/ucx
-COPY ./build/libs/hadroNIO-memory-leak-1.0-SNAPSHOT-all.jar $HOME
+COPY . .
+RUN ./gradlew shadowJar
+RUN cp ./build/libs/hadroNIO-memory-leak-1.0-SNAPSHOT-all.jar $HOME
 ENV LD_LIBRARY_PATH=/opt/ucx/lib
 ENV PATH=$PATH:/opt/ucx/bin
 ENV UCX_TLS=tcp

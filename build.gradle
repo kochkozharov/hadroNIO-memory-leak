@@ -40,3 +40,7 @@ task NioClientJar(type: Jar) {
 
 NioServerJar.dependsOn shadowJar
 NioClientJar.dependsOn shadowJar
+
+wrapper {
+    gradleVersion = "7.5"
+}

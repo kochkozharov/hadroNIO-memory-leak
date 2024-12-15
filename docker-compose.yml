@@ -3,8 +3,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-      args:
-        HADRONIO_URL: ${HADRONIO_URL}
     ports:
       - "8080:8080"
     command: java ${JVM_PARAMS} com.github.kochkozharov.NioServer
@@ -12,8 +10,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-      args:
-        HADRONIO_URL: ${HADRONIO_URL}
     depends_on:
       - server
     ports:
