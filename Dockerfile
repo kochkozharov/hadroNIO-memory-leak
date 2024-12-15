@@ -21,7 +21,7 @@ RUN cd hadroNIO && \
     git checkout bugfix/socket-channel-issue && \
     ./gradlew shadowJar
 COPY --from=build-ucx /usr/app/ucx-bin /opt/ucx
-COPY ./build/libs/memory-leak-hadronio-1.0-SNAPSHOT-all.jar $HOME
+COPY ./build/libs/hadroNIO-memory-leak-1.0-SNAPSHOT-all.jar $HOME
 ENV LD_LIBRARY_PATH=/opt/ucx/lib
 ENV PATH=$PATH:/opt/ucx/bin
 ENV UCX_TLS=tcp

@@ -11,7 +11,7 @@ public class NioClient {
     public static void main(String[] args) throws IOException {
         Selector selector = Selector.open();
 
-        int connectionCount = 1000;
+        int connectionCount = 10000;
 
         for (int i = 0; i < connectionCount; i++) {
             System.out.println("Socket " + i);
