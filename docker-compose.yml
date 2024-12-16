@@ -5,13 +5,14 @@ services:
       context: .
     ports:
       - "8080:8080"
-    command: java ${JVM_PARAMS} com.github.kochkozharov.NioServer
+      - "9010:9010"
+    command: java ${JVM_PARAMS} ${JVM_VISUALVM_PARAMS_SERVER} com.github.kochkozharov.NioServer
   client:
     build:
       dockerfile: Dockerfile
       context: .
+    ports:
+      - "9011:9011"
     depends_on:
       - server
-    ports:
-      - "9010:9010"
-    command: java ${JVM_PARAMS} ${JVM_VISUALVM_PARAMS} -XX:MaxDirectMemorySize=1G com.github.kochkozharov.NioClient
+    command: java ${JVM_PARAMS} ${JVM_VISUALVM_PARAMS_CLIENT} -XX:MaxDirectMemorySize=1G com.github.kochkozharov.NioClient
