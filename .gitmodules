@@ -1,4 +1,4 @@
 [submodule "hadroNIO"]
-	path = hadroNIO
+	path = submodules/hadroNIO
 	url = https://github.com/kochkozharov/hadroNIO
 	branch = bugfix/socket-channel-issue
