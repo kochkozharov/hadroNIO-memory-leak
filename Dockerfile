@@ -16,7 +16,7 @@ WORKDIR $HOME
 RUN apt-get update && \
     apt-get install -y git libnuma-dev
 COPY . .
-RUN cd hadroNIO && \
+RUN cd submodules/hadroNIO && \
     git checkout bugfix/socket-channel-issue && \
     ./gradlew shadowJar
 COPY --from=build-ucx /usr/app/ucx-bin /opt/ucx
