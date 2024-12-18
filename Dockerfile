@@ -16,6 +16,7 @@ WORKDIR $HOME
 RUN apt-get update && \
     apt-get install -y git libnuma-dev
 COPY . .
+RUN git clone https://github.com/kochkozharov/hadroNIO.git submodules/hadroNIO
 RUN cd submodules/hadroNIO && \
     git checkout bugfix/socket-channel-issue && \
     ./gradlew shadowJar
