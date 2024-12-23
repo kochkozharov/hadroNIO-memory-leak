@@ -19,7 +19,8 @@ COPY . .
 RUN git clone https://github.com/kochkozharov/hadroNIO.git submodules/hadroNIO
 RUN cd submodules/hadroNIO && \
     git checkout bugfix/socket-channel-issue && \
-    ./gradlew shadowJar
+    ./gradlew shadowJar && \
+    ./gradlew installDist
 COPY --from=build-ucx /usr/app/ucx-bin /opt/ucx
 RUN ./gradlew shadowJar
 RUN cp ./build/libs/hadroNIO-memory-leak-1.0-SNAPSHOT-all.jar $HOME

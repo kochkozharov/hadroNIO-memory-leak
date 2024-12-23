@@ -17,7 +17,7 @@ public class Main {
                 }
             }
             else if (args[0].equalsIgnoreCase("test_client")) {
-                for (int i = 0; i < 3000; ++i) {
+                for (int i = 0; i < 10000; ++i) {
                     System.out.println("Connection " + i);
                     try (var scanner = new Scanner("Test")) {
                         new NioClient().start(PORT_NUMBER, scanner);

@@ -43,6 +43,7 @@ public class NioServer {
                                 var socket = client.socket();
                                 System.out.println("DISCONNECTED");
                                 client.close();
+                                System.out.println("CLOSED");
                                 clients.remove(client);
                                 continue;
                             }
