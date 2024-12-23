@@ -41,8 +41,7 @@ public class NioServer {
                             var bytesRead = client.read(buffer);
                             if (bytesRead == -1) {
                                 var socket = client.socket();
-                                var clientInfo = socket.getInetAddress().getHostAddress() + ":" + socket.getPort();
-                                System.out.println("DISCONNECTED: " + clientInfo);
+                                System.out.println("DISCONNECTED");
                                 client.close();
                                 clients.remove(client);
                                 continue;
