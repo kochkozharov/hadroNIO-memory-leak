@@ -9,7 +9,7 @@ RUN git clone --depth 1 -b v1.17.0 --single-branch --depth 1 https://github.com/
     make -j8 && \
     make install
 
-FROM eclipse-temurin:11-jdk AS build-hadronio
+FROM eclipse-temurin:17-jdk AS build-hadronio
 ENV HOME=/usr/app
 RUN mkdir -p $HOME
 WORKDIR $HOME

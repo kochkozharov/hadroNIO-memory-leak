@@ -25,22 +25,3 @@ wrapper {
 }
 
 
-//task NioServerJar(type: Jar) {
-//    archiveBaseName = 'NioServer'
-//    from sourceSets.main.output
-//    manifest {
-//        attributes 'Main-Class': 'com.github.kochkozharov.NioServer'
-//    }
-//}
-//
-//task NioClientJar(type: Jar) {
-//    archiveBaseName = 'NioClient'
-//    from sourceSets.main.output
-//    manifest {
-//        attributes 'Main-Class': 'com.github.kochkozharov.NioClient'
-//    }
-//}
-//
-//NioServerJar.dependsOn shadowJar
-//NioClientJar.dependsOn shadowJar
-//
