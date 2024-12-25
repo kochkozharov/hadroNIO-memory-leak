@@ -15,9 +15,9 @@ RUN mkdir -p $HOME
 WORKDIR $HOME
 RUN apt-get update && \
     apt-get install -y git
-RUN git clone https://github.com/kochkozharov/hadroNIO.git
+RUN git clone https://github.com/hhu-bsinfo/hadroNIO.git
 RUN cd hadroNIO &&  \
-    git checkout bugfix/direct-buffer-issue && \
+    git checkout development && \
     ./gradlew shadowJar && \
     ./gradlew installDist
 

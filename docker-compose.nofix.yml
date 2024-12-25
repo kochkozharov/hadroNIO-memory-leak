@@ -1,0 +1,18 @@
+services:
+  server:
+    build:
+      dockerfile: Nofix.Dockerfile
+      context: .
+    ports:
+      - "8080:8080"
+      - "9010:9010"
+    command: java ${JVM_PARAMS} ${JVM_VISUALVM_PARAMS_SERVER} com.github.kochkozharov.Main server
+  client:
+    build:
+      dockerfile: Nofix.Dockerfile
+      context: .
+    ports:
+      - "9011:9011"
+    depends_on:
+      - server
+    command: java ${JVM_PARAMS} ${JVM_VISUALVM_PARAMS_CLIENT} com.github.kochkozharov.Main test_client
