@@ -9,18 +9,26 @@ RUN git clone --depth 1 -b v1.17.0 --single-branch --depth 1 https://github.com/
     make -j8 && \
     make install
 
-FROM eclipse-temurin:17-jdk AS build-hadronio
+FROM eclipse-temurin:11-jdk AS build-hadronio
+ENV HOME=/usr/app
+RUN mkdir -p $HOME
+WORKDIR $HOME
+RUN apt-get update && \
+    apt-get install -y git
+RUN git clone https://github.com/hhu-bsinfo/hadroNIO.git
+RUN cd hadroNIO && \
+    git checkout development && \
+    ./gradlew shadowJar && \
+    ./gradlew installDist
+
+FROM eclipse-temurin:17-jdk
 ENV HOME=/usr/app
 RUN mkdir -p $HOME
 WORKDIR $HOME
 RUN apt-get update && \
     apt-get install -y git libnuma-dev
 COPY . .
-RUN git clone https://github.com/kochkozharov/hadroNIO.git submodules/hadroNIO
-RUN cd submodules/hadroNIO && \
-    git checkout bugfix/socket-channel-issue && \
-    ./gradlew shadowJar && \
-    ./gradlew installDist
+COPY --from=build-hadronio /usr/app/hadroNIO /usr/app/submodules/hadroNIO
 COPY --from=build-ucx /usr/app/ucx-bin /opt/ucx
 RUN ./gradlew shadowJar
 RUN cp ./build/libs/hadroNIO-memory-leak-1.0-SNAPSHOT-all.jar $HOME
