@@ -1,7 +1,7 @@
 services:
   server:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Nofix.Dockerfile
       context: .
     ports:
       - "8080:8080"
@@ -9,7 +9,7 @@ services:
     command: java ${JVM_PARAMS} ${JVM_VISUALVM_PARAMS_SERVER} com.github.kochkozharov.Main server
   client:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Nofix.Dockerfile
       context: .
     ports:
       - "9011:9011"
