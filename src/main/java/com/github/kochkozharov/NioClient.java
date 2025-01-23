@@ -9,9 +9,9 @@ import java.util.Scanner;
 public class NioClient {
 
     public void start(final int portNumber, final Scanner scanner) {
-        try (var serverChannel = SocketChannel.open();) {
-            serverChannel.connect(new InetSocketAddress("server", portNumber));
-            serverChannel.configureBlocking(true);
+        try (var socketChannel = SocketChannel.open();) {
+            socketChannel.connect(new InetSocketAddress("server", portNumber));
+            socketChannel.configureBlocking(true);
             System.out.println("Connection established!");
             var buffer = ByteBuffer.allocate(1024);
             while (scanner.hasNextLine()) {
@@ -22,11 +22,11 @@ public class NioClient {
                 line += System.lineSeparator();
                 buffer.clear().put(line.getBytes()).flip();
                 while (buffer.hasRemaining()) {
-                    serverChannel.write(buffer);
+                    socketChannel.write(buffer);
                 }
                 buffer.clear();
 
-                var bytesRead = serverChannel.read(buffer);
+                var bytesRead = socketChannel.read(buffer);
                 if (bytesRead > 0) {
                     buffer.flip();
                     var readData = new byte[bytesRead];
