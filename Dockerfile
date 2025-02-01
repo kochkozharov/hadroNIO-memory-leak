@@ -17,7 +17,7 @@ RUN apt-get update && \
     apt-get install -y git
 RUN git clone https://github.com/kochkozharov/hadroNIO.git
 RUN cd hadroNIO &&  \
-    git checkout bugfix/direct-buffer-issue && \
+    git checkout bugfix/direct-buffer-clearing && \
     ./gradlew shadowJar && \
     ./gradlew installDist
 

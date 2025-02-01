@@ -17,7 +17,7 @@ public class Main {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Port number must be a valid integer");
         }
-
+        int i = 1;
         if (mode.equalsIgnoreCase("server")) {
             new NioServer().start(portNumber);
         } else if (mode.equalsIgnoreCase("client")) {
@@ -25,11 +25,12 @@ public class Main {
                 new NioClient().start(portNumber, scanner);
             }
         } else if (mode.equalsIgnoreCase("test_client")) {
-            for (int i = 0; i < 10000; ++i) {
+            for (;;) {
                 System.out.println("Connection " + i);
                 try (var scanner = new Scanner("Test")) {
                     new NioClient().start(portNumber, scanner);
                 }
+                ++i;
             }
         } else {
             throw new IllegalArgumentException("Unknown mode: " + mode);
