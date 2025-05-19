@@ -16,3 +16,5 @@ services:
     depends_on:
       - server
     command: java ${JVM_PARAMS} ${JVM_VISUALVM_PARAMS_CLIENT} com.github.kochkozharov.Main test_client 12345
+    volumes:
+    - ./logs:/logs

@@ -9,29 +9,18 @@ RUN git clone --depth 1 -b v1.17.0 --single-branch --depth 1 https://github.com/
     make -j8 && \
     make install
 
-FROM eclipse-temurin:11-jdk AS build-hadronio
-ENV HOME=/usr/app
-RUN mkdir -p $HOME
-WORKDIR $HOME
-RUN apt-get update && \
-    apt-get install -y git
-RUN git clone https://github.com/kochkozharov/hadroNIO.git
-RUN cd hadroNIO &&  \
-    git checkout bugfix/direct-buffer-clearing && \
-    ./gradlew shadowJar && \
-    ./gradlew installDist
-
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:20-jdk
 ENV HOME=/usr/app
 RUN mkdir -p $HOME
 WORKDIR $HOME
 RUN apt-get update && \
     apt-get install -y git libnuma-dev
 COPY . .
-COPY --from=build-hadronio /usr/app/hadroNIO /usr/app/submodules/hadroNIO
 COPY --from=build-ucx /usr/app/ucx-bin /opt/ucx
-RUN ./gradlew shadowJar
-RUN cp ./build/libs/hadroNIO-memory-leak-1.0-SNAPSHOT-all.jar $HOME
+COPY ./build/libs/hadroNIO-memory-leak-1.0-SNAPSHOT-all.jar $HOME
 ENV LD_LIBRARY_PATH=/opt/ucx/lib
 ENV PATH=$PATH:/opt/ucx/bin
 ENV UCX_TLS=tcp
+RUN apt-get install -y libstdc++6
+RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/libstdc++.so
+RUN mkdir /logs

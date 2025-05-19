@@ -31,6 +31,11 @@ public class Main {
                     new NioClient().start(portNumber, scanner);
                 }
                 ++i;
+                // try {
+                //     Thread.sleep(1000);
+                // } catch (InterruptedException e) {
+                //     Thread.currentThread().interrupt();
+                // }
             }
         } else {
             throw new IllegalArgumentException("Unknown mode: " + mode);
